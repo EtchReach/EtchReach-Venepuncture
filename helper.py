@@ -37,5 +37,10 @@ def read_quaternion_data(ser: serial.Serial):
 def parse_quaternion(quat: QuaternionData):
 
     quatParsed = (f"w{quat.qw}wa{quat.qx}ab{quat.qy}bc{quat.qz}c")
-
+    print(quatParsed)
     return quatParsed
+
+
+ser = serial.Serial("COM5", 9600, timeout=1) # or 115200
+quaternion_data = read_quaternion_data(ser)
+# line = parse_quaternion(quaternion_data)

@@ -13,7 +13,7 @@ useQuat = True   # set true for using quaternions, false for using y,p,r angles
 
 if(useSerial):
     import serial
-    ser = serial.Serial("COM5", 115200, timeout=1)
+    ser = serial.Serial("COM5", 115200, timeout=1) # or 115200
 else:
     import socket
 
@@ -83,7 +83,7 @@ def init():
 def cleanSerialBegin():
     if(useQuat):
         try:
-            # line = ser.readline().decode('UTF-8').replace('\n', '')
+            line = ser.readline().decode('UTF-8').replace('\n', '')
 
             quaternion_data = read_quaternion_data(ser)
             line = parse_quaternion(quaternion_data)
@@ -95,7 +95,7 @@ def cleanSerialBegin():
             pass
     else:
         try:
-            # line = ser.readline().decode('UTF-8').replace('\n', '')
+            line = ser.readline().decode('UTF-8').replace('\n', '')
 
             quaternion_data = read_quaternion_data(ser)
             line = parse_quaternion(quaternion_data)
