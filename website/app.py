@@ -1,8 +1,9 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify
 import io
 import socket
 import struct
 from PIL import Image
+from pi_imu_test.using_imu_code.imu_sensor import get_sensor_data # import made possible using __init__.py to make it a package
 
 app = Flask(__name__)
 
@@ -18,12 +19,7 @@ def index():
 def get_angle():
     # Obtain yaw pitch roll from Pi-IMU (pi_imu_test) (done)
 
-    # Obtain yaw pitch roll 
-    yaw, pitch, roll = 0, 0, 0
-    return yaw, pitch, roll
+    return jsonify(get_sensor_data())
 
-
-def image_server():
-
-
-
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
