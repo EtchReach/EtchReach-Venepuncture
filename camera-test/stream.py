@@ -1,14 +1,22 @@
-from picamera2 import Picamera2
+from picamera2 import Picamera2, Preview
 from picamera2.encoders import H264Encoder
 from picamera2.outputs import FileOutput, FfmpegOutput
 import time
+
+picam2 = Picamera2()
+camera_config = picam2.create_preview_configuration()
+picam2.configure(camera_config)
+picam2.start_preview(Preview.DRM)
+picam2.start()
+time.sleep(2)
+picam2.capture_file("test.jpg")
 
 '''https://datasheets.raspberrypi.com/camera/picamera2-manual.pdf
 In this example we stream an MPEG-2 transport stream over the network using the UDP protocol where any client may
 connect and view the stream. After five seconds we start the second output and record five seconds' worth of H.264
 video to a file. We close this output file, but the network stream continues to play.
 
-'''
+
 picam2 = Picamera2()
 video_config = picam2.create_video_configuration()
 picam2.configure(video_config)
@@ -30,7 +38,7 @@ time.sleep(5)
 output2.stop()
 
 # The file is closed, but carry on streaming to the network.
-time.sleep(9999999)
+time.sleep(9999999)'''
 
 
 
