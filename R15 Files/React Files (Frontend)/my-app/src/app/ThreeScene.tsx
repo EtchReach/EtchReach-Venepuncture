@@ -40,12 +40,24 @@ function CubeWithAngle() {
   const fYaw   = useRef(0);
   const fRoll  = useRef(0);
 
-  // Apply the angle from backend
-  useFrame(() => {
+  const prevPitch = useRef(0);
+  const prevYaw = useRef(0);
+  const prevRoll = useRef(0);
 
-    fPitch.current += (pitch - fPitch.current) * 0.01;
-    fYaw.current   += (yaw   - fYaw.current) * 0.01;
-    fRoll.current  += (roll  - fRoll.current) * 0.01;
+  // Apply the angle from backend
+  useFrame((state) => {
+
+    const velPitch = pitch - prevPitch.current;
+    const velYaw   = yaw   - prevYaw.current;
+    const velRoll  = roll  - prevRoll.current;
+
+    fPitch.current += (pitch - fPitch.current) * 0.1 + velPitch * 0.05;
+    fYaw.current   += (yaw   - fYaw.current) * 0.1 + velYaw * 0.05;
+    fRoll.current  += (roll  - fRoll.current) * 0.1 + velRoll * 0.05;
+
+    prevPitch.current = pitch
+    prevYaw.current = yaw
+    prevRoll.current = roll
 
 
     if (meshRef.current) {
